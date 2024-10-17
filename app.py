@@ -1,50 +1,50 @@
 import streamlit as st
 import cv2
 import numpy as np
-#from PIL import Image
-from PIL import Image as Image, ImageOps as ImagOps
+from PIL import Image as Image
 from keras.models import load_model
-
 import platform
 
 # Muestra la versión de Python junto con detalles adicionales
-st.write("Versión de Python:", platform.python_version())
+st.write(f"<span style='font-family:Inter;'>Versión de Python: {platform.python_version()}</span>", unsafe_allow_html=True)
 
+# Cargar el modelo de Keras
 model = load_model('keras_model.h5')
 data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
 
-st.title("Reconocimiento de Imágenes")
-#st.write("Versión de Python:", platform.python_version())
+# Título con la tipografía Lexend
+st.markdown("<h1 style='font-family:Lexend;'>Reconocimiento de Imágenes</h1>", unsafe_allow_html=True)
+
+# Cargar y mostrar imagen centrada
 image = Image.open('OIG5.jpg')
-st.image(image, width=350)
+st.image(image, width=350, use_column_width='always')
+
 with st.sidebar:
-    st.subheader("Usando un modelo entrenado en teachable Machine puedes Usarlo en esta app para identificar")
+    st.markdown("<h2 style='font-family:Lexend;'>Usando un modelo entrenado</h2>", unsafe_allow_html=True)
+    st.markdown("<p style='font-family:Inter;'>Puedes usar esta app para identificar gestos.</p>", unsafe_allow_html=True)
+
+# Entrada para tomar una foto
 img_file_buffer = st.camera_input("Toma una Foto")
 
 if img_file_buffer is not None:
-    # To read image file buffer with OpenCV:
-    data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
-   #To read image file buffer as a PIL Image:
+    # Convertir la imagen capturada a un formato adecuado
     img = Image.open(img_file_buffer)
-
     newsize = (224, 224)
     img = img.resize(newsize)
-    # To convert PIL Image to numpy array:
+    
     img_array = np.array(img)
-
-    # Normalize the image
     normalized_image_array = (img_array.astype(np.float32) / 127.0) - 1
-    # Load the image into the array
     data[0] = normalized_image_array
 
-    # run the inference
+    # Realizar la predicción
     prediction = model.predict(data)
-    print(prediction)
-    if prediction[0][0]>0.5:
-      st.header('Izquierda, con Probabilidad: '+str( prediction[0][0]) )
-    if prediction[0][1]>0.5:
-      st.header('Arriba, con Probabilidad: '+str( prediction[0][1]))
-    #if prediction[0][2]>0.5:
+
+    # Mostrar resultados
+    if prediction[0][0] > 0.5:
+        st.markdown(f"<h2 style='font-family:Lexend;'>Izquierda, con Probabilidad: {str(prediction[0][0])}</h2>", unsafe_allow_html=True)
+    if prediction[0][1] > 0.5:
+        st.markdown(f"<h2 style='font-family:Lexend;'>Arriba, con Probabilidad: {str(prediction[0][1])}</h2>", unsafe_allow_html=True)
+
     # st.header('Derecha, con Probabilidad: '+str( prediction[0][2]))
 
 
