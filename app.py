@@ -6,7 +6,7 @@ from keras.models import load_model
 import platform
 
 # Muestra la versión de Python junto con detalles adicionales
-st.write(f"<span style='font-family:Inter;'>Versión de Python: {platform.python_version()}</span>", unsafe_allow_html=True)
+st.write(f"<span style='font-family:Lexend;'>Versión de Python: {platform.python_version()}</span>", unsafe_allow_html=True)
 
 # Cargar el modelo de Keras
 model = load_model('keras_model.h5')
