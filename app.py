@@ -31,7 +31,7 @@ data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
 st.markdown("<h1>Reconocimiento de Imágenes</h1>", unsafe_allow_html=True)
 
 # Cargar y mostrar imagen centrada
-image = Image.open('OIG5.jpg')
+image = Image.open('Yoru - Gestos.png')
 st.image(image, width=350, use_column_width='always')
 
 with st.sidebar:
