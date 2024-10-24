@@ -23,8 +23,8 @@ st.markdown("""
 # Muestra la versión de Python con la tipografía 'Inter'
 st.write(f"<span>Versión de Python: {platform.python_version()}</span>", unsafe_allow_html=True)
 
-# Cargar tu propio modelo de Keras
-model = load_model('tu_modelo.h5')  # Cambia el nombre del archivo por el de tu modelo
+# Cargar el modelo de Keras
+model = load_model('keras_model.h5')
 data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
 
 # Título con la tipografía Lexend
@@ -54,8 +54,8 @@ if img_file_buffer is not None:
     # Realizar la predicción
     prediction = model.predict(data)
 
-    # Mostrar resultados según las clases que hayas definido en tu modelo
+    # Mostrar resultados
     if prediction[0][0] > 0.5:
-        st.markdown(f"<h2>Pulgar Arriba, con Probabilidad: {str(prediction[0][0])}</h2>", unsafe_allow_html=True)
+        st.markdown(f"<h2>Pulgar arriba, con Probabilidad: {str(prediction[0][0])}</h2>", unsafe_allow_html=True)
     if prediction[0][1] > 0.5:
-        st.markdown(f"<h2>Pulgar Abajo, con Probabilidad: {str(prediction[0][1])}</h2>", unsafe_allow_html=True)
+        st.markdown(f"<h2>Pulgar abajo, con Probabilidad: {str(prediction[0][1])}</h2>", unsafe_allow_html=True)
